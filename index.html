@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bot Integration Full Guide</title>
+    <title>Advanced Bot Setup Guide</title>
     <!-- Google Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Inter:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Inter:wght@400;600;800&display=swap"
       rel="stylesheet"
     />
     <!-- Font Awesome -->
@@ -16,9 +16,9 @@
       :root {
         --slack-color: #4a154b;
         --telegram-color: #0088cc;
-        --accent-color: #2563eb;
-        --bg-light: #f3f4f6;
+        --bg-body: #f4f7f9;
         --card-bg: #ffffff;
+        --accent: #6366f1;
       }
 
       * {
@@ -29,8 +29,8 @@
 
       body {
         font-family: "Inter", "Hind Siliguri", sans-serif;
-        background-color: var(--bg-light);
-        color: #1f2937;
+        background-color: var(--bg-body);
+        color: #334155;
         line-height: 1.6;
       }
 
@@ -40,231 +40,469 @@
         padding: 40px 20px;
       }
 
+      /* Header Style */
       header {
         text-align: center;
-        margin-bottom: 50px;
         background: linear-gradient(135deg, var(--slack-color), var(--telegram-color));
-        padding: 60px 20px;
         color: white;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 70px 20px;
+        border-radius: 30px;
+        margin-bottom: 50px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
       }
 
+      header i.bot-logo {
+        font-size: 4.5rem;
+        margin-bottom: 20px;
+        color: #00ffcc;
+      }
       header h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
+        font-weight: 800;
         margin-bottom: 10px;
       }
+      header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
 
-      .section-title {
+      /* Section Cards */
+      .card {
+        background: var(--card-bg);
+        border-radius: 25px;
+        padding: 45px;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eef2f6;
+      }
+
+      .section-header {
         display: flex;
         align-items: center;
         gap: 15px;
+        margin-bottom: 35px;
+        border-bottom: 2px solid #f1f5f9;
+        padding-bottom: 15px;
+      }
+
+      .section-header img {
+        width: 45px;
+        height: 45px;
+      }
+      .section-header h2 {
         font-size: 1.8rem;
-        margin-bottom: 25px;
-        padding-bottom: 10px;
-        border-bottom: 3px solid #e5e7eb;
+        color: #1e293b;
       }
 
-      .card {
-        background: var(--card-bg);
+      /* Steps Style */
+      .step-list {
+        display: grid;
+        gap: 15px;
+      }
+      .step-item {
+        background: #f8fafc;
+        padding: 20px;
         border-radius: 15px;
-        padding: 30px;
-        margin-bottom: 40px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        border: 1px solid #e5e7eb;
+        display: flex;
+        gap: 15px;
+        border-left: 5px solid #cbd5e1;
+        transition: 0.3s;
+      }
+      .step-item:hover {
+        border-left-color: var(--accent);
+        background: #f1f5f9;
+        transform: translateX(5px);
+      }
+      .step-num {
+        background: #1e293b;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        flex-shrink: 0;
+        font-size: 0.9rem;
       }
 
-      .step {
-        background: #f9fafb;
-        border-left: 5px solid var(--accent-color);
-        padding: 15px 20px;
-        margin-bottom: 15px;
-        border-radius: 0 10px 10px 0;
-      }
-
-      .step strong {
-        color: #111827;
+      .step-content strong {
+        color: #0f172a;
+        font-size: 1.05rem;
         display: block;
         margin-bottom: 5px;
-        font-size: 1.1rem;
       }
-
-      code {
-        background: #2d3436;
-        color: #fab1a0;
-        padding: 3px 8px;
-        border-radius: 5px;
-        font-family: "Courier New", monospace;
+      .step-content p {
+        color: #64748b;
         font-size: 0.95rem;
       }
 
-      .postman-box {
-        background: #1e293b;
-        color: #f8fafc;
+      /* Links Style */
+      .direct-link {
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+        border-bottom: 1px dashed var(--accent);
+      }
+      .direct-link:hover {
+        color: var(--slack-color);
+        border-bottom-style: solid;
+      }
+
+      /* Special Slack Instructions */
+      .slack-special {
+        background: #fffbeb;
+        border: 1px dashed #f59e0b;
+        padding: 25px;
+        border-radius: 15px;
+        margin-top: 20px;
+      }
+      .slack-special h4 {
+        color: #b45309;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .sub-steps {
+        list-style: none;
+        padding-left: 10px;
+      }
+      .sub-steps li {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.95rem;
+      }
+      .sub-steps i {
+        color: #f59e0b;
+        font-size: 0.8rem;
+      }
+
+      /* Comparison Box */
+      .comparison-box {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 15px;
         padding: 20px;
-        border-radius: 12px;
+        margin-top: 20px;
+      }
+      .comparison-box h5 {
+        color: #166534;
+        margin-bottom: 10px;
+        font-size: 1rem;
+      }
+      .comparison-item {
+        font-size: 0.9rem;
+        color: #1e293b;
+        margin-bottom: 5px;
+      }
+
+      /* DM Note Style */
+      .dm-note {
         margin-top: 15px;
+        padding: 12px 15px;
+        background: #ffffff;
+        border-radius: 10px;
+        color: #166534;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid #bbf7d0;
+      }
+
+      /* Code Blocks */
+      .code-block {
+        background: #1e293b;
+        color: #f1f5f9;
+        padding: 25px;
+        border-radius: 15px;
+        margin-top: 25px;
+        font-family: "Fira Code", monospace;
         position: relative;
       }
-
-      .postman-box h4 {
-        color: #38bdf8;
-        margin-bottom: 10px;
-        font-size: 0.9rem;
-        text-transform: uppercase;
+      .code-label {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        background: #334155;
+        padding: 4px 10px;
+        font-size: 0.7rem;
+        border-radius: 0 0 8px 8px;
+        color: #94a3b8;
       }
-
       pre {
-        overflow-x: auto;
         white-space: pre-wrap;
+        word-break: break-all;
         font-size: 0.9rem;
       }
-
-      .tag {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 50px;
-        font-size: 0.8rem;
-        font-weight: bold;
-        margin-bottom: 10px;
-        text-transform: uppercase;
+      .keyword {
+        color: #f472b6;
       }
-
-      .tag-slack {
-        background: #fef3c7;
-        color: #92400e;
+      .string {
+        color: #fbbf24;
       }
-      .tag-telegram {
-        background: #e0f2fe;
-        color: #075985;
-      }
-
-      .url-link {
-        color: #2563eb;
-        word-break: break-all;
+      .url {
+        color: #38bdf8;
       }
 
       footer {
         text-align: center;
-        margin-top: 50px;
-        color: #6b7280;
+        padding: 40px;
+        color: #94a3b8;
         font-size: 0.9rem;
+      }
+
+      /* --- Mobile Responsive Styles --- */
+      @media (max-width: 768px) {
+        header {
+          padding: 40px 15px;
+          border-radius: 20px;
+        }
+        header h1 {
+          font-size: 1.8rem;
+        }
+        header i.bot-logo {
+          font-size: 3rem;
+        }
+        header p {
+          font-size: 1rem;
+        }
+        .card {
+          padding: 25px 15px;
+          border-radius: 15px;
+        }
+        .section-header h2 {
+          font-size: 1.4rem;
+        }
+        .step-item {
+          padding: 15px;
+        }
+        .step-content strong {
+          font-size: 1rem;
+        }
+        .slack-special {
+          padding: 15px;
+        }
+        .code-block {
+          padding: 20px 15px;
+        }
+        pre {
+          font-size: 0.8rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+        .step-item {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .step-num {
+          width: 25px;
+          height: 25px;
+          font-size: 0.8rem;
+        }
       }
     </style>
   </head>
   <body>
     <div class="container">
       <header>
-        <h1><i class="fas fa-robot"></i> Bot Integration Guide</h1>
-        <p>স্ল্যাক এবং টেলিগ্রাম বট সেটআপ করার সহজ বাংলা গাইড</p>
+        <i class="fas fa-robot bot-logo"></i>
+        <h1>Bot API Documentation</h1>
+        <p>Slack এবং Telegram বট ইন্টিগ্রেশন করার স্টেপ-বাই-স্টেপ গাইড</p>
       </header>
 
-      <!-- Slack Section -->
-      <section class="card">
-        <span class="tag tag-slack">Slack Messenger</span>
-        <h2 class="section-title">
-          <i class="fab fa-slack" style="color: var(--slack-color)"></i> Slack Bot সেটআপ নিয়ম
-        </h2>
-
-        <div class="step">
-          <strong>১. Workspace তৈরি:</strong>
-          আপনার একটি Slack Workspace আগে থেকে ক্রিয়েট করা থাকতে হবে।
+      <!-- SLACK SECTION -->
+      <div class="card">
+        <div class="section-header">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg" alt="Slack Logo" />
+          <h2>Slack Bot & Webhook Integration</h2>
         </div>
 
-        <div class="step">
-          <strong>২. App তৈরি করা:</strong>
-          <a href="https://api.slack.com/apps" target="_blank">api.slack.com/apps</a> এ গিয়ে আপনার Workspace এর জন্য
-          একটি নতুন App ক্রিয়েট করতে হবে।
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">১</div>
+            <div class="step-content">
+              <strong>Workspace নিশ্চিত করা</strong>
+              <p>
+                অ্যাক্টিভ Slack Workspace না থাকলে এখান থেকে তৈরি করুন:
+                <a href="https://slack.com/get-started#/create" target="_blank" class="direct-link">Create Workspace</a>
+              </p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">২</div>
+            <div class="step-content">
+              <strong>App তৈরি করা</strong>
+              <p>
+                অ্যাপ তৈরি না থাকলে এখান থেকে নতুন অ্যাপ তৈরি করুন:
+                <a href="https://api.slack.com/apps?new_app=1" target="_blank" class="direct-link"
+                  >Create New Slack App</a
+                >
+              </p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">৩</div>
+            <div class="step-content">
+              <strong>Scopes ও Permissions সেট করা</strong>
+              <p>
+                আপনার অ্যাপ ড্যাশবোর্ড থেকে
+                <a href="https://api.slack.com/apps" target="_blank" class="direct-link">OAuth & Permissions</a> সেকশনে
+                গিয়ে <code>chat:write</code> এবং <code>chat:read</code> স্কোপ অ্যাড করুন।
+              </p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">৪</div>
+            <div class="step-content">
+              <strong>App ইন্সটল ও টোকেন সংগ্রহ</strong>
+              <p>
+                ইন্সটল করার জন্য একই পেজের (OAuth & Permissions) উপরের
+                <a href="https://api.slack.com/apps" target="_blank" class="direct-link">Install to Workspace</a> বাটনে
+                ক্লিক করুন এবং টোকেন কপি করুন।
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div class="step">
-          <strong>৩. Scope সেট করা:</strong>
-          অ্যাপ ড্যাশবোর্ডে গিয়ে "OAuth & Permissions" সেকশনে যান। সেখানে নিচের Scope গুলো অবশ্যই অ্যাড করতে হবে:
-          <br /><code>chat:write</code> (মেসেজ পাঠানোর জন্য) <br /><code>chat:read</code> (মেসেজ রিড করার জন্য)
+        <!-- Token Usage Comparison -->
+        <div class="comparison-box">
+          <h5><i class="fas fa-exchange-alt"></i> টোকেন পাঠানোর নিয়ম (Important):</h5>
+          <div class="comparison-item">
+            ১. <strong>Bot API:</strong> বট দিয়ে মেসেজ পাঠালে টোকেনটি রিকোয়েস্টের <b>Header</b>-এ পাঠাতে হয়।
+          </div>
+          <div class="comparison-item">
+            ২. <strong>Webhook:</strong> ওয়েবহুক ব্যবহার করলে টোকেনটি সরাসরি <b>Webhook URL</b>-এর মধ্যেই থাকে (আলাদা
+            হেডারের প্রয়োজন নেই)।
+          </div>
         </div>
 
-        <div class="step">
-          <strong>৪. App ইন্সটল করা:</strong>
-          একই পেজে (OAuth & Permissions) উপরে গিয়ে "Install to Workspace" বাটনে ক্লিক করতে হবে এবং পারমিশন এলাউ করতে
-          হবে।
+        <!-- Slack Add App Details -->
+        <div class="slack-special">
+          <h4><i class="fas fa-plus-circle"></i> চ্যানেলে বট অ্যাড করার সঠিক নিয়ম:</h4>
+          <ul class="sub-steps">
+            <li>
+              <i class="fas fa-check"></i> স্ল্যাক অ্যাপ ওপেন করে আপনার নির্দিষ্ট <b>চ্যানেলের ওপর ক্লিক</b> করুন।
+            </li>
+            <li><i class="fas fa-check"></i> উপরের মেনু থেকে <b>Integrations</b> ট্যাব-এ ক্লিক করুন।</li>
+            <li><i class="fas fa-check"></i> এরপর <b>Add apps</b> বাটনে ক্লিক করুন।</li>
+            <li>
+              <i class="fas fa-check"></i> অ্যাপের লিস্ট থেকে আপনার তৈরি করা অ্যাপটি খুঁজে <b>Add</b> বাটনে ক্লিক করুন।
+            </li>
+          </ul>
+
+          <div class="dm-note">
+            <i class="fas fa-info-circle"></i>
+            <span
+              ><strong>নোট:</strong> ডিরেক্ট মেসেজ (Direct Message) এর ক্ষেত্রে চ্যানেলের মতো আলাদা করে অ্যাপ অ্যাড করার
+              প্রয়োজন হয় না।</span
+            >
+          </div>
         </div>
 
-        <div class="step">
-          <strong>৫. Token সংগ্রহ ও ব্যবহার:</strong>
-          ইন্সটল করার পর আপনি একটি <b>Bot User OAuth Token</b> পাবেন। মেসেজ পাঠাতে বা রিড করতে চাইলে এই টোকেনটি
-          রিকোয়েস্টের <b>Header</b> এ পাঠাতে হবে।
-        </div>
-
-        <div class="postman-box">
-          <h4><i class="fas fa-paper-plane"></i> Postman Request (Slack)</h4>
+        <!-- Bot API Example -->
+        <div class="code-block">
+          <div class="code-label">Example 1: Slack Bot API</div>
           <pre>
-<strong>Method:</strong> POST
-<strong>URL:</strong> https://slack.com/api/chat.postMessage
-<strong>Header:</strong> Authorization: Bearer YOUR_TOKEN_HERE
+<span class="keyword">METHOD:</span> POST
+<span class="keyword">URL:</span> <span class="url">https://slack.com/api/chat.postMessage</span>
+<span class="keyword">Header:</span> Authorization: <span class="string">Bearer xoxb-your-token</span>
 
-<strong>Body (JSON):</strong>
+<span class="keyword">Body (JSON):</span>
 { 
-  "channel": "C06JA4DGFssfsNF", 
-  "text": "Hello from Slack Bot API!"
+  <span class="string">"channel"</span>: <span class="string">"C06JA4DGFssfsNF"</span>, 
+  <span class="string">"text"</span>: <span class="string">"Hello from Bot API via Header!"</span>
 }</pre>
         </div>
-      </section>
 
-      <!-- Telegram Section -->
-      <section class="card">
-        <span class="tag tag-telegram">Telegram Messenger</span>
-        <h2 class="section-title">
-          <i class="fab fa-telegram" style="color: var(--telegram-color)"></i> Telegram Bot সেটআপ নিয়ম
-        </h2>
-
-        <div class="step">
-          <strong>১. BotFather ব্যবহার:</strong>
-          টেলিগ্রাম অ্যাপে গিয়ে <code>BotFather</code> লিখে সার্চ করুন এবং নিচের কাজগুলো করুন: <br />•
-          <code>/start</code> লিখে মেসেজ দিন। <br />• <code>/newbot</code> লিখে পাঠান। <br />• বটের একটি নাম (Bot Name)
-          দিন। <br />• বটের একটি ইউজারনেম (Username) দিন।
-        </div>
-
-        <div class="step">
-          <strong>২. Bot তৈরি ও URL:</strong>
-          ইউজারনেম দেওয়ার পর আপনার বটটি ক্রিয়েট হয়ে যাবে। BotFather আপনাকে বটের একটি URL দিবে, সেই লিংকে ঢুকলে আপনি বটের
-          মেসেজ দেখতে পাবেন এবং মেসেজ পাঠাতে পারবেন।
-        </div>
-
-        <div class="step">
-          <strong>৩. User Data / Get Updates:</strong>
-          ইউজার ইনফো বা আপডেট দেখতে নিচের লিংকে ব্রাউজ করুন (আপনার টোকেন সহ):
-          <br /><span class="url-link">https://api.telegram.org/bot93727:AAGgwPUI7reTQrJ0_J2YxL5h9S8I/getUpdates</span>
-        </div>
-
-        <div class="step">
-          <strong>৪. Message Create URL:</strong>
-          বট দিয়ে মেসেজ পাঠাতে এই এপিআই ব্যবহার করুন:
-          <br /><span class="url-link"
-            >https://api.telegram.org/bot87212:AAG7ZZrAWqmPv9D1vg9SlpI9JnbZag/sendMessage</span
-          >
-        </div>
-
-        <div class="step">
-          <strong>৫. Token in Header:</strong>
-          টেলিগ্রামের ক্ষেত্রেও রিকোয়েস্ট করার সময় টোকেনটি হেডার (Header) হিসেবে পাঠাতে হবে।
-        </div>
-
-        <div class="postman-box">
-          <h4><i class="fas fa-paper-plane"></i> Postman Request (Telegram)</h4>
+        <!-- Webhook Example -->
+        <div class="code-block" style="border-top: 4px solid #2eb67d">
+          <div class="code-label">Example 2: Slack Webhook</div>
           <pre>
-<strong>Method:</strong> POST
-<strong>URL:</strong> https://api.telegram.org/botYOUR_TOKEN/sendMessage
+<span class="keyword">METHOD:</span> POST
+<span class="keyword">URL:</span> <span class="url">https://hooks.slack.com/services/T000/B000/XXXXXXX</span> 
+<span style="color: #94a3b8;">// এখানে টোকেনটি URL-এর শেষেই থাকে (XXXXXXX অংশটি)</span>
 
-<strong>Body (JSON):</strong>
-{
-    "chat_id": "5204155030",
-    "text": "Hello Akjm! I'm bot"
+<span class="keyword">Body (JSON):</span>
+{ 
+  <span class="string">"text"</span>: <span class="string">"Hello from Webhook via URL Token!"</span>
 }</pre>
         </div>
-      </section>
+      </div>
+
+      <!-- TELEGRAM SECTION -->
+      <div class="card">
+        <div class="section-header">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo" />
+          <h2>Telegram Bot Integration</h2>
+        </div>
+
+        <div class="step-list">
+          <div class="step-item">
+            <div class="step-num">১</div>
+            <div class="step-content">
+              <strong>BotFather এর কাজ</strong>
+              <p>
+                টেলিগ্রামে @BotFather সার্চ করে <code>/start</code> দিন, তারপর <code>/newbot</code> লিখে নাম ও ইউজারনেম
+                দিয়ে বট তৈরি করুন।
+              </p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">২</div>
+            <div class="step-content">
+              <strong>বট URL ও মেসেজিং</strong>
+              <p>বট ক্রিয়েট হলে একটি URL পাবেন, সেখানে ঢুকে বটকে স্টার্ট করুন এবং মেসেজ আদান-প্রদান চেক করুন।</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">৩</div>
+            <div class="step-content">
+              <strong>Get User / Updates URL</strong>
+              <p class="url" style="font-size: 0.85rem">https://api.telegram.org/bot&lt;TOKEN&gt;/getUpdates</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">৪</div>
+            <div class="step-content">
+              <strong>Message Create URL</strong>
+              <p class="url" style="font-size: 0.85rem">https://api.telegram.org/bot&lt;TOKEN&gt;/sendMessage</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="slack-special" style="background: #e0f2fe; border-color: #0ea5e9">
+          <h4 style="color: #0369a1"><i class="fas fa-key"></i> টেলিগ্রাম টোকেন ও হেডার:</h4>
+          <p style="font-size: 0.95rem; color: #0c4a6e">
+            টেলিগ্রাম এপিআই রিকোয়েস্ট করার সময় আপনার বটের টোকেনটি অবশ্যই <b>Header</b>-এ পাঠাতে হবে।
+          </p>
+        </div>
+
+        <div class="code-block">
+          <pre>
+<span class="keyword">METHOD:</span> POST
+<span class="keyword">URL:</span> <span class="url">https://api.telegram.org/botYOUR_TOKEN/sendMessage</span>
+
+<span class="keyword">Body (JSON):</span>
+{
+    <span class="string">"chat_id"</span>: <span class="string">"5204155030"</span>,
+    <span class="string">"text"</span>: <span class="string">"Hello Akjm! I'm bot"</span>
+}</pre>
+        </div>
+      </div>
 
       <footer>
-        <p>Bot Integration Documentation &copy; 2023 | All rights reserved.</p>
+        <p>&copy; 2023 | Developed by Your Name | Bot API Full Documentation</p>
       </footer>
     </div>
   </body>
