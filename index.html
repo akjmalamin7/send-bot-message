@@ -1,175 +1,271 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slack & Telegram Bot Documentation</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bot Integration Full Guide</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f7f6;
-        }
-        header {
-            background: #2c3e50;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-            border-radius: 8px 8px 0 0;
-        }
-        .container {
-            background: #fff;
-            padding: 30px;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #2980b9;
-            border-bottom: 2px solid #2980b9;
-            padding-bottom: 10px;
-        }
-        h3 {
-            color: #e67e22;
-        }
-        .step {
-            margin-bottom: 20px;
-        }
-        code {
-            background: #f1f1f1;
-            padding: 2px 5px;
-            border-radius: 4px;
-            font-family: 'Courier New', Courier, monospace;
-            color: #c7254e;
-        }
-        pre {
-            background: #272822;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        .method {
-            font-weight: bold;
-            color: #27ae60;
-        }
-        .url {
-            color: #2980b9;
-        }
-        .note {
-            background: #fff3cd;
-            border-left: 5px solid #ffecb5;
-            padding: 10px;
-            margin: 10px 0;
-        }
+      :root {
+        --slack-color: #4a154b;
+        --telegram-color: #0088cc;
+        --accent-color: #2563eb;
+        --bg-light: #f3f4f6;
+        --card-bg: #ffffff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", "Hind Siliguri", sans-serif;
+        background-color: var(--bg-light);
+        color: #1f2937;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 50px;
+        background: linear-gradient(135deg, var(--slack-color), var(--telegram-color));
+        padding: 60px 20px;
+        color: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #e5e7eb;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e5e7eb;
+      }
+
+      .step {
+        background: #f9fafb;
+        border-left: 5px solid var(--accent-color);
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        border-radius: 0 10px 10px 0;
+      }
+
+      .step strong {
+        color: #111827;
+        display: block;
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+      }
+
+      code {
+        background: #2d3436;
+        color: #fab1a0;
+        padding: 3px 8px;
+        border-radius: 5px;
+        font-family: "Courier New", monospace;
+        font-size: 0.95rem;
+      }
+
+      .postman-box {
+        background: #1e293b;
+        color: #f8fafc;
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 15px;
+        position: relative;
+      }
+
+      .postman-box h4 {
+        color: #38bdf8;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+      }
+
+      pre {
+        overflow-x: auto;
+        white-space: pre-wrap;
+        font-size: 0.9rem;
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+
+      .tag-slack {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .tag-telegram {
+        background: #e0f2fe;
+        color: #075985;
+      }
+
+      .url-link {
+        color: #2563eb;
+        word-break: break-all;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 50px;
+        color: #6b7280;
+        font-size: 0.9rem;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1><i class="fas fa-robot"></i> Bot Integration Guide</h1>
+        <p>স্ল্যাক এবং টেলিগ্রাম বট সেটআপ করার সহজ বাংলা গাইড</p>
+      </header>
 
-<header>
-    <h1>Bot Integration Guide</h1>
-    <p>Slack এবং Telegram বট দিয়ে মেসেজ পাঠানোর নিয়মাবলী</p>
-</header>
+      <!-- Slack Section -->
+      <section class="card">
+        <span class="tag tag-slack">Slack Messenger</span>
+        <h2 class="section-title">
+          <i class="fab fa-slack" style="color: var(--slack-color)"></i> Slack Bot সেটআপ নিয়ম
+        </h2>
 
-<div class="container">
-    
-    <!-- Slack Section -->
-    <section>
-        <h2>১. Slack Bot Integration</h2>
-        <p>Slack-এ বট তৈরি করে মেসেজ পাঠাতে নিচের ধাপগুলো অনুসরণ করুন:</p>
-        
         <div class="step">
-            <h3>ধাপ ১: Workspace তৈরি</h3>
-            <p>আপনার একটি একটি অ্যাক্টিভ Slack Workspace থাকতে হবে। না থাকলে <a href="https://slack.com/get-started" target="_blank">slack.com</a> থেকে তৈরি করে নিন।</p>
+          <strong>১. Workspace তৈরি:</strong>
+          আপনার একটি Slack Workspace আগে থেকে ক্রিয়েট করা থাকতে হবে।
         </div>
 
         <div class="step">
-            <h3>ধাপ ২: App তৈরি করা</h3>
-            <p><a href="https://api.slack.com/apps" target="_blank">Slack API Dashboard</a>-এ যান এবং <b>"Create New App"</b> বাটনে ক্লিক করে "From scratch" সিলেক্ট করুন। অ্যাপের নাম দিন এবং আপনার Workspace সিলেক্ট করুন।</p>
+          <strong>২. App তৈরি করা:</strong>
+          <a href="https://api.slack.com/apps" target="_blank">api.slack.com/apps</a> এ গিয়ে আপনার Workspace এর জন্য
+          একটি নতুন App ক্রিয়েট করতে হবে।
         </div>
 
         <div class="step">
-            <h3>ধাপ ৩: Scope সেট করা</h3>
-            <p>বাম পাশের মেনু থেকে <b>"OAuth & Permissions"</b>-এ যান। নিচে "Scopes" সেকশনে গিয়ে <b>"Bot Token Scopes"</b>-এ নিচের পারমিশনগুলো যোগ করুন:</p>
-            <ul>
-                <li><code>chat:write</code> (মেসেজ পাঠানোর জন্য)</li>
-                <li><code>channels:read</code> (চ্যানেল লিস্ট দেখার জন্য)</li>
-            </ul>
+          <strong>৩. Scope সেট করা:</strong>
+          অ্যাপ ড্যাশবোর্ডে গিয়ে "OAuth & Permissions" সেকশনে যান। সেখানে নিচের Scope গুলো অবশ্যই অ্যাড করতে হবে:
+          <br /><code>chat:write</code> (মেসেজ পাঠানোর জন্য) <br /><code>chat:read</code> (মেসেজ রিড করার জন্য)
         </div>
 
         <div class="step">
-            <h3>ধাপ ৪: App ইন্সটল ও টোকেন সংগ্রহ</h3>
-            <p>একই পেজের উপরের দিকে <b>"Install to Workspace"</b> বাটনে ক্লিক করুন। ইন্সটল হয়ে গেলে আপনি একটি <b>"Bot User OAuth Token"</b> পাবেন (এটি <code>xoxb-</code> দিয়ে শুরু হয়)। এই টোকেনটি কপি করে রাখুন।</p>
+          <strong>৪. App ইন্সটল করা:</strong>
+          একই পেজে (OAuth & Permissions) উপরে গিয়ে "Install to Workspace" বাটনে ক্লিক করতে হবে এবং পারমিশন এলাউ করতে
+          হবে।
         </div>
 
         <div class="step">
-            <h3>ধাপ ৫: Postman-এ রিকোয়েস্ট পাঠানো</h3>
-            <p>Slack-এ মেসেজ পাঠানোর জন্য নিচের তথ্যগুলো ব্যবহার করুন:</p>
-            <p><span class="method">POST:</span> <span class="url">https://slack.com/api/chat.postMessage</span></p>
-            <p><b>Headers:</b></p>
-            <pre>Authorization: Bearer YOUR_SLACK_BOT_TOKEN
-Content-Type: application/json</pre>
-            <p><b>Body (JSON):</b></p>
-            <pre>{
+          <strong>৫. Token সংগ্রহ ও ব্যবহার:</strong>
+          ইন্সটল করার পর আপনি একটি <b>Bot User OAuth Token</b> পাবেন। মেসেজ পাঠাতে বা রিড করতে চাইলে এই টোকেনটি
+          রিকোয়েস্টের <b>Header</b> এ পাঠাতে হবে।
+        </div>
+
+        <div class="postman-box">
+          <h4><i class="fas fa-paper-plane"></i> Postman Request (Slack)</h4>
+          <pre>
+<strong>Method:</strong> POST
+<strong>URL:</strong> https://slack.com/api/chat.postMessage
+<strong>Header:</strong> Authorization: Bearer YOUR_TOKEN_HERE
+
+<strong>Body (JSON):</strong>
+{ 
   "channel": "C06JA4DGFssfsNF", 
   "text": "Hello from Slack Bot API!"
 }</pre>
         </div>
-    </section>
+      </section>
 
-    <hr>
-
-    <!-- Telegram Section -->
-    <section>
-        <h2>২. Telegram Bot Integration</h2>
-        <p>Telegram-এ বট তৈরি করে মেসেজ পাঠাতে নিচের ধাপগুলো অনুসরণ করুন:</p>
+      <!-- Telegram Section -->
+      <section class="card">
+        <span class="tag tag-telegram">Telegram Messenger</span>
+        <h2 class="section-title">
+          <i class="fab fa-telegram" style="color: var(--telegram-color)"></i> Telegram Bot সেটআপ নিয়ম
+        </h2>
 
         <div class="step">
-            <h3>ধাপ ১: BotFather এর মাধ্যমে বট তৈরি</h3>
-            <ul>
-                <li>Telegram-এ গিয়ে <code>@BotFather</code> সার্চ করুন।</li>
-                <li><code>/start</code> বাটনে ক্লিক করুন।</li>
-                <li><code>/newbot</code> লিখে পাঠান।</li>
-                <li>বটের একটি নাম (Name) দিন।</li>
-                <li>বটের একটি ইউজার নেম (Username) দিন (যা অবশ্যই <code>bot</code> শব্দ দিয়ে শেষ হতে হবে, যেমন: <code>my_test_bot</code>)।</li>
-            </ul>
-            <p>সফলভাবে তৈরি হলে BotFather আপনাকে একটি <b>API Token</b> এবং বটের URL দেবে।</p>
+          <strong>১. BotFather ব্যবহার:</strong>
+          টেলিগ্রাম অ্যাপে গিয়ে <code>BotFather</code> লিখে সার্চ করুন এবং নিচের কাজগুলো করুন: <br />•
+          <code>/start</code> লিখে মেসেজ দিন। <br />• <code>/newbot</code> লিখে পাঠান। <br />• বটের একটি নাম (Bot Name)
+          দিন। <br />• বটের একটি ইউজারনেম (Username) দিন।
         </div>
 
         <div class="step">
-            <h3>ধাপ ২: Chat ID সংগ্রহ করা</h3>
-            <p>আপনার বটের লিঙ্কে ঢুকে একটি মেসেজ দিন। তারপর নিচের URL-টি ব্রাউজারে ওপেন করে আপনার <code>chat_id</code> খুঁজে বের করুন:</p>
-            <p><span class="url">https://api.telegram.org/bot&lt;YOUR_TOKEN&gt;/getUpdates</span></p>
+          <strong>২. Bot তৈরি ও URL:</strong>
+          ইউজারনেম দেওয়ার পর আপনার বটটি ক্রিয়েট হয়ে যাবে। BotFather আপনাকে বটের একটি URL দিবে, সেই লিংকে ঢুকলে আপনি বটের
+          মেসেজ দেখতে পাবেন এবং মেসেজ পাঠাতে পারবেন।
         </div>
 
         <div class="step">
-            <h3>ধাপ ৩: Postman-এ রিকোয়েস্ট পাঠানো</h3>
-            <p>Telegram-এ মেসেজ পাঠানোর জন্য নিচের নিয়মটি অনুসরণ করুন:</p>
-            <p><span class="method">POST:</span> <span class="url">https://api.telegram.org/bot&lt;YOUR_TOKEN&gt;/sendMessage</span></p>
-            
-            <p><b>Headers:</b></p>
-            <pre>Content-Type: application/json</pre>
+          <strong>৩. User Data / Get Updates:</strong>
+          ইউজার ইনফো বা আপডেট দেখতে নিচের লিংকে ব্রাউজ করুন (আপনার টোকেন সহ):
+          <br /><span class="url-link">https://api.telegram.org/bot93727:AAGgwPUI7reTQrJ0_J2YxL5h9S8I/getUpdates</span>
+        </div>
 
-            <p><b>Body (JSON):</b></p>
-            <pre>{
+        <div class="step">
+          <strong>৪. Message Create URL:</strong>
+          বট দিয়ে মেসেজ পাঠাতে এই এপিআই ব্যবহার করুন:
+          <br /><span class="url-link"
+            >https://api.telegram.org/bot87212:AAG7ZZrAWqmPv9D1vg9SlpI9JnbZag/sendMessage</span
+          >
+        </div>
+
+        <div class="step">
+          <strong>৫. Token in Header:</strong>
+          টেলিগ্রামের ক্ষেত্রেও রিকোয়েস্ট করার সময় টোকেনটি হেডার (Header) হিসেবে পাঠাতে হবে।
+        </div>
+
+        <div class="postman-box">
+          <h4><i class="fas fa-paper-plane"></i> Postman Request (Telegram)</h4>
+          <pre>
+<strong>Method:</strong> POST
+<strong>URL:</strong> https://api.telegram.org/botYOUR_TOKEN/sendMessage
+
+<strong>Body (JSON):</strong>
+{
     "chat_id": "5204155030",
     "text": "Hello Akjm! I'm bot"
 }</pre>
         </div>
+      </section>
 
-        <div class="note">
-            <strong>নোট:</strong> Telegram-এর ক্ষেত্রে টোকেনটি সরাসরি URL-এর মধ্যেই থাকে (<code>/bot&lt;token&gt;/</code> ফরম্যাটে)। আলাদা করে হেডার না দিলেও চলে, তবে JSON বডি পাঠানোর জন্য <code>Content-Type: application/json</code> হেডার ব্যবহার করা জরুরি।
-        </div>
-    </section>
-
-</div>
-
-<footer style="text-align: center; margin-top: 20px; color: #777; font-size: 0.9em;">
-    &copy; 2023 Bot API Documentation | Created for Learning Purpose
-</footer>
-
-</body>
+      <footer>
+        <p>Bot Integration Documentation &copy; 2023 | All rights reserved.</p>
+      </footer>
+    </div>
+  </body>
 </html>
